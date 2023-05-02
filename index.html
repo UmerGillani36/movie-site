@@ -1,0 +1,246 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>Movie Design</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <h1 class="logo">Movies</h1>
+            </div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item active"><a href="./index.html">Home</a></li>
+                    <li class="menu-list-item"> <a href="./favourite.html">Favourites </a></li>
+                    <li class="menu-list-item"><a href="./details.html">Details</a></li>
+                </ul>
+            </div>
+            <div class="profile-container">
+                <div class="buttons">
+                    <button>Login</button>
+                    <button>Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        <i class="left-menu-icon fas fa-home"></i>
+        <i class="left-menu-icon fas fa-bookmark"></i>
+        <i class="left-menu-icon fas fa-hourglass-start"></i>
+    </div>
+    <div class="container">
+        <div class="content-container">
+            <div class="featured-content"
+                style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('img/f-1.jpg');">
+                <img class="featured-title" src="img/f-t-1.png" alt="">
+                <p class="featured-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor
+                    deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis
+                    minima voluptatibus incidunt. Accusamus, provident.</p>
+            </div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">NEW RELEASES</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        <!-- <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/1.jpeg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/2.jpeg" alt="">
+                            <span class="movie-list-item-title">Star Wars</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/3.jpg" alt="">
+                            <span class="movie-list-item-title">Storm</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/4.jpg" alt="">
+                            <span class="movie-list-item-title">1917</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/5.jpg" alt="">
+                            <span class="movie-list-item-title">Avengers</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/6.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="img/7.jpg" alt="">
+                            <span class="movie-list-item-title">Her</span>
+                            <p class="movie-list-item-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. At
+                                hic fugit similique accusantium.</p>
+                            <button class="movie-list-item-button">Watch</button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+		// create an array of movie objects
+		// get the content div
+		const contentDiv = document.querySelector('.movie-list');
+
+		// get favourites from local storage (if any)
+		let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+        function getMoviesArray() {
+            let moviesArray = JSON.parse(localStorage.getItem('movies'));
+            console.log('Movies Array Called', moviesArray);
+        if (!moviesArray) {
+            const moviesArrayy = [
+			{
+				imageUrl: 'img/2.jpeg',
+				title: 'Movie 1',
+				review: [],
+                rating: [],
+				isFavourite: false
+			},
+			{
+				imageUrl: 'img/3.jpg',
+				title: 'Movie 2',
+				review: [],
+                rating: [],
+				isFavourite: false
+			},
+			{
+				imageUrl: 'img/4.jpg',
+				title: 'Movie 3',
+				review: [],
+                rating: [],
+				isFavourite: false
+			},
+			{
+				imageUrl: 'img/5.jpg',
+				title: 'Movie 4',
+				review: [],
+                rating: [],
+				isFavourite: false
+			},
+			{
+				imageUrl: 'img/6.jpg',
+				title: 'Movie 5',
+				review: [],
+                rating: [],
+				isFavourite: true
+			}
+		];
+        localStorage.setItem('movies', JSON.stringify(moviesArrayy));
+        return moviesArrayy
+        }
+        return moviesArray;
+    }
+
+        function handleCardClick(movie) {
+            console.log('Card Click Movie: ', movie);
+            const urlSearchParams = new URLSearchParams(movie);
+            const url = `details.html?${urlSearchParams.toString()}`;
+            window.location.href = url;
+        }
+
+        const movies = getMoviesArray();
+
+		// loop through the movies array and generate a movie card for each one
+		movies.forEach(movie => {
+			// create a new div for the movie card
+			const cardDiv = document.createElement('div');
+			cardDiv.classList.add('movie-list-item');
+
+			// create an image element and set the source to the movie's image URL
+			const imageElem = document.createElement('img');
+            imageElem.classList.add('movie-list-item-img');
+			imageElem.src = movie.imageUrl;
+
+			// create a heading element and set the text to the movie's title
+			const titleElem = document.createElement('span');
+            titleElem.classList.add('movie-list-item-title')
+			titleElem.textContent = movie.title;
+
+			// create a star icon element for the favourite button
+			const starElem = document.createElement('i');
+			starElem.classList.add('star', 'far', 'fa-star');
+            starElem.classList.add('active');
+
+			// if the movie is already a favourite, add the active class to the star icon
+			// if (movie.isFavourite) {
+			// }
+
+			// add a click event listener to the star icon
+			starElem.addEventListener('click', () => {
+				// toggle the active class on the
+                // if the movie is now a favourite, add it to the favourites array
+                let movieNotExist = true;
+                favourites.forEach(val => {
+                    console.log(val);
+                    if (movie.title === val.title){
+                        movieNotExist = false;
+                    } 
+                })
+			if (movieNotExist) {
+				favourites.push(movie);
+			} else { // if the movie is no longer a favourite, remove it from the favourites array
+				favourites = favourites.filter(favourite => favourite.title !== movie.title);
+			}
+
+			// save the updated favourites array to local storage
+			localStorage.setItem('favourites', JSON.stringify(favourites));
+            if(movieNotExist) {
+                alert('Movie Added')
+            } else {
+                alert('Movie Removed')
+            }
+		});
+
+		// create a button element and set the text to the movie's review
+		const buttonElem = document.createElement('button');
+        buttonElem.classList.add('button');
+        buttonElem.classList.add('details-button');
+		buttonElem.textContent = 'Details';
+
+        buttonElem.addEventListener('click', () => {
+                handleCardClick(movie)
+            });
+
+		// append the image, title, star icon, and review elements to the card div
+		cardDiv.appendChild(imageElem);
+		cardDiv.appendChild(titleElem);
+		cardDiv.appendChild(starElem);
+		cardDiv.appendChild(buttonElem);
+
+		// append the card div to the content div
+		contentDiv.appendChild(cardDiv);
+	});
+</script>
+    <script src="app.js"></script>
+</body>
+
+</html>

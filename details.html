@@ -1,0 +1,278 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>Movie Design</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <h1 class="logo">Movies</h1>
+            </div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item active"><a href="./index.html">Home</a></li>
+                    <li class="menu-list-item"> <a href="./favourite.html">Favourites </a></li>
+                    <li class="menu-list-item"><a href="./details.html">Details</a></li>
+                </ul>
+            </div>
+            <div class="profile-container">
+                <div class="buttons">
+                    <button>Login</button>
+                    <button>Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        <i class="left-menu-icon fas fa-home"></i>
+        <i class="left-menu-icon fas fa-bookmark"></i>
+        <i class="left-menu-icon fas fa-hourglass-start"></i>
+    </div>
+    <div class="container">
+        <div class="content-container">
+        </div>
+        <div class="review-div">
+        <h2 class="reivew">Comments</h2>
+        <ul class="reviews-container"></ul>
+    </div>
+    </div>
+    <script>
+	function getMovieData() {
+  const searchParams = new URLSearchParams(window.location.search);
+  console.log('Search Params: ', searchParams);
+  const movieData = {
+    imageUrl: searchParams.get('imageUrl'),
+    title: searchParams.get('title'),
+    isFavourite: searchParams.get('isFavourite')
+    // add any other relevant data here
+  };
+  return movieData;
+}
+
+// function displayReviews(movieData) {
+
+//     const movies = JSON.parse(localStorage.getItem('movies')) || [];
+//   const movie = movies.find((movie) => {
+//     return movie.title === movieData.title;
+//   });
+
+//   console.log('Movie111111: ', movie)
+
+//   // get the reviews container element
+//   const reviewsContainer = document.querySelector('.reviews-container');
+
+//   // create an HTML element for each review and append it to the reviews container
+//   if (movie && movie.review) {
+//     movie.review.forEach((review) => {
+//       const reviewElement = document.createElement('li');
+//       reviewElement.classList.add('review');
+//       reviewElement.textContent = review;
+//       reviewsContainer.appendChild(reviewElement);
+//     });
+//   }
+// }
+
+function displayReviews(movieData) {
+  const movies = JSON.parse(localStorage.getItem('movies')) || [];
+  const movie = movies.find((movie) => {
+    return movie.title === movieData.title;
+  });
+
+  console.log('Movie111111: ', movie)
+
+  // get the reviews container element
+  const reviewsContainer = document.querySelector('.reviews-container');
+
+  // create an HTML element for each review and append it to the reviews container
+  if (movie && movie.review && movie.rating) {
+    for (let i = 0; i < movie.review.length; i++) {
+      const reviewElement = document.createElement('p');
+      reviewElement.classList.add('review');
+      let star='';
+      for(let j=0; j<movie.rating[i]; j++){
+        star+='⭐';
+      }
+
+  const ratingElement = document.createElement('span');
+  ratingElement.classList.add('rating');
+  ratingElement.textContent = `(${movie.rating[i]} /5)`;
+
+  reviewElement.textContent = "@testuser123 =>" + star;
+  reviewElement.appendChild(ratingElement);
+  reviewsContainer.appendChild(reviewElement);
+
+  const reviewTextElement = document.createElement('p');
+  reviewTextElement.classList.add('review-text');
+  reviewTextElement.textContent = movie.review[i];
+  reviewsContainer.appendChild(reviewTextElement);
+    }
+  }
+}
+
+
+// ------------------------------------------------
+
+function createCard(movieData) {
+  // create a new div element
+  const featuredContent = document.createElement('div');
+
+  // add the classes and styles to the new element
+  featuredContent.classList.add('featured-content');
+  featuredContent.style.background = `linear-gradient(to bottom, rgba(0,0,0,0), #151515), url(${movieData.imageUrl})`;
+
+  // create and add the image element
+  const featuredTitle = document.createElement('span');
+  featuredTitle.classList.add('featured-title');
+  featuredTitle.textContent = movieData.title;
+  featuredTitle.alt = "";
+
+  featuredContent.appendChild(featuredTitle);
+
+  // create and add the paragraph element
+  const featuredDesc = document.createElement('p');
+  featuredDesc.classList.add('featured-desc');
+  featuredDesc.textContent = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto illo dolor deserunt nam assumenda ipsa eligendi dolore, ipsum id fugiat quo enim impedit, laboriosam omnis minima voluptatibus incidunt. Accusamus, provident.";
+
+  featuredContent.appendChild(featuredDesc);
+
+  // create the review form and input field
+  const reviewForm = document.createElement('form');
+  // create the star rating input field
+const ratingInput = document.createElement('input');
+ratingInput.type = 'number';
+ratingInput.min = '1';
+ratingInput.max = '5';
+ratingInput.step = '1';
+ratingInput.placeholder = 'Rating (1-5)';
+reviewForm.appendChild(ratingInput);
+  const reviewInput = document.createElement('input');
+  reviewInput.type = 'text';
+  reviewInput.placeholder = 'Write a comment...';
+  reviewForm.appendChild(reviewInput);
+
+  // create the submit button
+  const submitButton = document.createElement('button');
+  submitButton.classList.add('button');
+  submitButton.type = 'submit';
+  submitButton.textContent = 'Submit';
+  reviewForm.appendChild(submitButton);
+
+  // add the form to the featured content
+  featuredContent.appendChild(reviewForm);
+
+//   // add the event listener to the submit button
+//   reviewForm.addEventListener('submit', (event) => {
+//     console.log('Submit Called: ');
+//     event.preventDefault(); // prevent the default form submission behavior
+
+//     const reviewText = reviewInput.value.trim();
+//     if (reviewText) {
+//       // retrieve the movies array from local storage
+//       const movies = JSON.parse(localStorage.getItem('movies')) || [];
+
+//       // find the movie in the movies array that matches the movie data from the URL
+//       const movie = movies.find((moviesss) => {
+//         return moviesss.title === movieData.title;
+//       });
+
+//       console.log('Movvvie: ', movie);
+
+//       if (movie) {
+//         // add the review to the movie's review array
+//         movie.review.push(reviewText);
+
+//         const moviess = movies.map((data) => {
+//             if (data.title === movie.title) {
+//                 return movie
+//             } else {
+//                 return data;
+//             }
+//       });
+
+//         // update the movies array in local storage
+//         localStorage.setItem('movies', JSON.stringify(moviess));
+
+//         // clear the review text input field
+//         reviewInput.value = '';
+//         location.reload();
+
+// add the event listener to the submit button
+reviewForm.addEventListener('submit', (event) => {
+  console.log('Submit Called: ');
+  event.preventDefault(); // prevent the default form submission behavior
+
+  const reviewText = reviewInput.value.trim();
+  const rating = ratingInput.value.trim();
+
+  if (reviewText && rating) {
+    // retrieve the movies array from local storage
+    const movies = JSON.parse(localStorage.getItem('movies')) || [];
+
+    // find the movie in the movies array that matches the movie data from the URL
+    const movie = movies.find((moviesss) => {
+      return moviesss.title === movieData.title;
+    });
+
+    console.log('Movvvie: ', movie);
+
+    if (movie) {
+      // add the review and rating to the movie object
+      movie.review.push(reviewText);
+      movie.rating.push(rating);
+
+      const moviess = movies.map((data) => {
+        if (data.title === movie.title) {
+          return movie;
+        } else {
+          return data;
+        }
+      });
+
+      // update the movies array in local storage
+      localStorage.setItem('movies', JSON.stringify(moviess));
+
+      // clear the review and rating input fields
+      reviewInput.value = '';
+      ratingInput.value = '';
+
+      // reload the page to display the updated reviews and ratings
+      location.reload();
+    }
+  }
+});
+
+  // append the new element to the content-container class
+  const contentContainer = document.querySelector('.content-container');
+  contentContainer.appendChild(featuredContent);
+}
+
+// -------------------------------------------------
+
+// get the query string from the URL
+const queryString = window.location.search;
+
+// create a new URLSearchParams object from the query string
+const urlSearchParams = new URLSearchParams(queryString);
+
+// get the movie data and create the card
+const movieData = getMovieData(urlSearchParams);
+const card = createCard(movieData);
+
+
+displayReviews(movieData);
+
+</script>
+    <script src="app.js"></script>
+</body>
+
+</html>
